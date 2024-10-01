@@ -1,0 +1,99 @@
+﻿<RibbonWindow x:Class="WpfApp.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d"
+    Icon="Images/Open.png"
+    Title="Текстовий редактор" Height="350" Width="525">
+
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Ribbon Grid.Row="0" Margin="1,1,1,1">
+            <Ribbon.HelpPaneContent>
+                <RibbonButton SmallImageSource="images/HelpApplication.png" KeyTip="F" Click="btnHelp_Click"/>
+            </Ribbon.HelpPaneContent>
+
+            <Ribbon.ApplicationMenu>
+                <RibbonApplicationMenu SmallImageSource="images/icon-home.png">
+                    <RibbonApplicationMenuItem Header="Create" ImageSource="Images/CloseDocument.png" KeyTip="C" Click="btnCreate_Click"/>
+
+                    <RibbonApplicationMenuItem Header="Open" ImageSource="Images/Open.png" KeyTip="O" Click="btnOpen_Click"/>
+                    <RibbonApplicationMenuItem Header="Print" ImageSource="images/Print.png" KeyTip="P" Click="btnPrint_Click"/>
+                    <RibbonApplicationMenuItem Header="Properties" ImageSource="images/Property.png"/>
+                    <RibbonApplicationMenuItem Header="Save" ImageSource="images/SaveAll.png" KeyTip="W" Click="btnSave_Click"/>
+                </RibbonApplicationMenu>
+            </Ribbon.ApplicationMenu>
+
+            <Ribbon.QuickAccessToolBar>
+                <RibbonQuickAccessToolBar>
+                    <RibbonSplitButton SmallImageSource="images/Undo.png" ToolTipTitle="Undo">
+                        <RibbonGallery  MaxColumnCount="3">
+                            <RibbonGalleryCategory>
+                                <RibbonSplitButton x:Name="Undo" SmallImageSource="images\Undo.png" Command="{x:Static ApplicationCommands.Undo}" CommandTarget="{Binding ElementName=_richTextBox}"></RibbonSplitButton>
+                                <RibbonSplitButton x:Name="Redo" SmallImageSource="images\Redo.png" Command="{x:Static ApplicationCommands.Redo}" CommandTarget="{Binding ElementName=_richTextBox}"></RibbonSplitButton>
+                            </RibbonGalleryCategory>
+                        </RibbonGallery>
+                    </RibbonSplitButton>
+                </RibbonQuickAccessToolBar>
+            </Ribbon.QuickAccessToolBar>
+
+
+            <RibbonTab Header="Home">
+                <RibbonGroup Header="Clipboard">
+                    <RibbonMenuButton LargeImageSource="Images/paste.png" Label="Paste" KeyTip="V">
+                        <RibbonMenuItem ImageSource="Images/Paste.png" Header="Keep Text Only" KeyTip="T" Command="{x:Static ApplicationCommands.Paste}" CommandTarget="{Binding ElementName=richTextBox}"/>
+                        <RibbonMenuItem ImageSource="Images/Paste.png" Header="Paste Special..." KeyTip="S"/>
+                    </RibbonMenuButton>
+                    <RibbonButton SmallImageSource="Images/Cut.png" Label="Cut" KeyTip="X" Command="{x:Static ApplicationCommands.Cut}" CommandTarget="{Binding ElementName=richTextBox}"/>
+                    <RibbonButton SmallImageSource="Images/Copy.png" Label="Copy" KeyTip="C" Command="{x:Static ApplicationCommands.Copy}" CommandTarget="{Binding ElementName=richTextBox}"/>
+                </RibbonGroup>
+
+                <RibbonGroup Header="Fonts" Width="Auto">
+                    <ComboBox x:Name="fontFamilyComboBox" ItemsSource="{Binding Source={x:Static Fonts.SystemFontFamilies}}" SelectionChanged="FontFamily_SelectionChanged" Text="Select Font..." IsEditable="True"/>
+                    <ComboBox x:Name="fontSizeComboBox" SelectionChanged="FontSize_SelectionChanged" Text="Size..." IsEditable="True"/>
+                    <RibbonButton SmallImageSource="Images/fonts/Bold.png" KeyTip="B" Command="{x:Static EditingCommands.ToggleBold}" CommandTarget="{Binding ElementName=richTextBox}"/>
+                    <RibbonButton SmallImageSource="Images/fonts/Italic.png" KeyTip="I" Command="{x:Static EditingCommands.ToggleItalic}" CommandTarget="{Binding ElementName=richTextBox}"/>
+                    <RibbonButton SmallImageSource="Images/fonts/Underline.png" KeyTip="U" Command="{x:Static EditingCommands.ToggleUnderline}" CommandTarget="{Binding ElementName=richTextBox}"/>
+
+                    <RibbonButton SmallImageSource="Images/fonts/FontColor.png" KeyTip="A" Click="btnChangeTextColor_Click"/>
+
+                </RibbonGroup>
+
+
+
+
+
+
+
+
+
+                <RibbonGroup>
+                    <RibbonButton SmallImageSource="Images/align/BulletList.png"/>
+                </RibbonGroup>
+            </RibbonTab>
+
+            <RibbonTab Header="Insert" UseLayoutRounding="True" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <RibbonGroup x:Name="objects" Header="Objects">
+                    <RibbonButton LargeImageSource="Images/insert/Table.png" Label="Table"/>
+                    <RibbonButton SmallImageSource="Images/insert/ApplicationAccess.png"/>
+                    <RibbonButton SmallImageSource="Images/insert/Rectangle.png"/>
+                    <RibbonButton SmallImageSource="Images/insert/LineChart.png"/>
+                    <RibbonButton SmallImageSource="Images/insert/Image.png"/>
+                </RibbonGroup>
+            </RibbonTab>
+
+
+        </Ribbon>
+        <RichTextBox x:Name="doc1" Grid.Row="1"/>
+
+
+    </Grid>
+
+</RibbonWindow>
