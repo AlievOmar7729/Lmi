@@ -7,8 +7,6 @@
     Icon="Images/Open.png"
     Title="Текстовий редактор" Height="350" Width="525">
 
-
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
